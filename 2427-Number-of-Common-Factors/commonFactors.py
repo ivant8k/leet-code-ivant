@@ -13,6 +13,6 @@ class Solution(object):
                 n+= 1
         return n
     
-solution = Solution()
-print(solution.commonFactors(12, 6))
-print(solution.commonFactors(25, 30))
+# solution = Solution()
+# print(solution.commonFactors(12, 6))
+# print(solution.commonFactors(25, 30))
