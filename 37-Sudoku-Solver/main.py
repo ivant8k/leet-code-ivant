@@ -4,37 +4,65 @@ class Solution(object):
         :type board: List[List[str]]
         :rtype: None Do not return anything, modify board in-place instead.
         """
-        def isValid(board, row, col, num):
-            for x in range(9):
-                if board[row][x] == num:
-                    return False
-                
-            for y in range (9):
-                if board[y][col] == num:
-                    return False
-            
-            startRow = 3 * (row // 3)
-            startCol = 3 * (col // 3)
+        rows = [set() for _ in range(9)]
+        cols = [set() for _ in range(9)]
+        subgrids = [set() for _ in range(9)]
 
-            for i in range (3):
-                for j in range (3):
-                    if board[i + startRow][j + startCol] == num:
-                        return False
+        for row in range(9):
+            for col in range(9):
+                if board[row][col] != ".":
+                    num = board[row][col]
+                    rows[row].add(num)
+                    cols[col].add(num)
+                    subgrids[(row // 3) * 3 + (col // 3)].add(num)
+
+        def isValid(row, col, num):
+            subgrid_index = (row // 3) * 3 + (col // 3)
+            if num in rows[row] or num in cols[col] or num in subgrids[subgrid_index]:
+                return False
             return True
+
+        def placeNumber(row, col, num):
+            board[row][col] = num
+            rows[row].add(num)
+            cols[col].add(num)
+            subgrids[(row // 3) * 3 + (col // 3)].add(num)
+
+        def removeNumber(row, col, num):
+            board[row][col] = "."
+            rows[row].remove(num)
+            cols[col].remove(num)
+            subgrids[(row // 3) * 3 + (col // 3)].remove(num)
+
+        def findEmptyCell():
+            min_options = float('inf')
+            best_cell = None
+            for row in range(9):
+                for col in range(9):
+                    if board[row][col] == ".":
+                        options = 0
+                        for n in range(1, 10):
+                            num = str(n)
+                            if isValid(row, col, num):
+                                options += 1
+                        if options < min_options:
+                            min_options = options
+                            best_cell = (row, col)
+            return best_cell
 
         def solve():
-            for row in range(9):
-                for col in range (9):
-                    if board[row][col] == ".":
-                        for n in range (1,10):
-                            num = str(n)
-                            if isValid(board,row,col,num):
-                                board[row][col] = num
-                                if solve():
-                                    return True
-                                board[row][col] = "."
-                        return False
-            return True
+            cell = findEmptyCell()
+            if not cell:
+                return True
+            row, col = cell
+            for n in range(1, 10):
+                num = str(n)
+                if isValid(row, col, num):
+                    placeNumber(row, col, num)
+                    if solve():
+                        return True
+                    removeNumber(row, col, num)
+            return False
 
         solve()
 
