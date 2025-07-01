@@ -16,8 +16,8 @@ class Solution(object):
 
         return "Bob" if turn == 0 else "Alice"
 
-solution = Solution()
-print(solution.winningPlayer(2, 7))  # Output: "Alice"
-print(solution.winningPlayer(4, 11))  # Output: "Bob"
-print(solution.winningPlayer(1, 1))  # Output: "Bob"
-print(solution.winningPlayer(2, 1))  # Output: "Bob"
+# solution = Solution()
+# print(solution.winningPlayer(2, 7))  # Output: "Alice"
+# print(solution.winningPlayer(4, 11))  # Output: "Bob"
+# print(solution.winningPlayer(1, 1))  # Output: "Bob"
+# print(solution.winningPlayer(2, 1))  # Output: "Bob"
