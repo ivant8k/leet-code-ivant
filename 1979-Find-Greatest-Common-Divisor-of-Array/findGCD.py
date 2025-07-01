@@ -14,6 +14,6 @@ class Solution(object):
         return gcd(min_num, max_num)
     
 # Example usage:
-solution = Solution()
-print(solution.findGCD([2, 5, 6, 9, 10]))
-print(solution.findGCD([7, 5, 6, 8, 3]))
+# solution = Solution()
+# print(solution.findGCD([2, 5, 6, 9, 10]))
+# print(solution.findGCD([7, 5, 6, 8, 3]))
